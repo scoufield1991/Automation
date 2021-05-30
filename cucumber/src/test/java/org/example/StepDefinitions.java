@@ -5,8 +5,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
 import utils.Waiters;
+
+import java.time.Duration;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +22,7 @@ public class StepDefinitions {
     Alert alert;
     @Given("I login as non registered user on haircarepanda")
     public void i_login_as_non_registered_user_on_haircarepanda() {
+        ProviderForDriver.INSTANCE.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         mainPage = new MainPage();
         mainPage.clickCookieButton();
     }
@@ -55,8 +61,6 @@ public class StepDefinitions {
     public void i_tap_on_delete_icon_near_product_name() throws InterruptedException {
         basketPage.deleteFromBasket();
         ProviderForDriver.INSTANCE.getDriver().switchTo().alert().accept();
-        Thread.sleep(2000);
-
     }
     @Then("the message “Your shopping cart is empty An empty basket is a sad basket” is displayed")
     public void the_message_your_shopping_cart_is_empty_an_empty_basket_is_a_sad_basket_is_displayed() {
@@ -67,7 +71,8 @@ public class StepDefinitions {
     @When("I tap on “+” icon near product name")
     public void i_tap_on_icon_near_product_name() throws InterruptedException {
         basketPage.cartElementPlus();
-        Thread.sleep(3000);
+        basketPage.checkBasket();
+        basketPage.checkCount();
     }
 
     @Then("the quantity of products is increased")

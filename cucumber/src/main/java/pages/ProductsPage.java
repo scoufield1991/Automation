@@ -14,6 +14,12 @@ public class ProductsPage extends AbstractPage {
     @FindBy(css = "[href$='/hair-care-panda-vegan-gummies']")
     private WebElement productGummies;
 
+    @FindBy(css = "span [data-name=\"Hair Care Panda Vegan Gummies\"]")
+    private WebElement buttonBuy;
+
+    @FindBy(css = ".table-cart-small-footer > [href='/shopping-cart']")
+    private WebElement buttonBasket;
+
     public WebElement checkProduct() {
         return productGummies;
     }
@@ -23,15 +29,9 @@ public class ProductsPage extends AbstractPage {
         builder.moveToElement(checkProduct()).perform();
     }
 
-    @FindBy(css = "span [data-name=\"Hair Care Panda Vegan Gummies\"]")
-    private WebElement buttonBuy;
-
     public void clickBuy(){
         buttonBuy.click();
     }
-
-    @FindBy(css = "[class=\"btn btn-primary btn-rounded-smaller no-animation\"]")
-    private WebElement buttonBasket;
 
     public BasketPage clickBasket(){
         Waiters.waitForElementToBeVisible(buttonBasket);

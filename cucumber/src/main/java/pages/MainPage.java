@@ -11,23 +11,26 @@ public class MainPage extends AbstractPage {
         super();
     }
 
-    @FindBy(css = "div [class =\"col-12 col-sm-3 btn-wrap\"] >button")
+    @FindBy(css = "[onclick=\"setLocalCookie(); $('#cookiebar').hide();\"]")
     private WebElement cookieButton;
+
+    @FindBy(css = "[href='/produkty/zelki']")
+    private WebElement categoryGummies;
+
+    @FindBy(css = "span [data-name=\"Hair Care Panda Pandastic Set\"]")
+    private WebElement buttonBuyMain;
+
+    @FindBy(css = ".table-cart-small-footer > [href='/shopping-cart']")
+    private WebElement buttonBasket;
 
     public void clickCookieButton(){
         cookieButton.click();
     }
 
-    @FindBy(css = "[href='/produkty/zelki']")
-    private WebElement categoryGummies;
-
     public ProductsPage selectCategory() {
         categoryGummies.click();
         return new ProductsPage();
     }
-
-    @FindBy(css = "span [data-name=\"Hair Care Panda Pandastic Set\"]")
-    private WebElement buttonBuyMain;
 
     public WebElement checkMainProduct() {
         return buttonBuyMain;
@@ -41,9 +44,6 @@ public class MainPage extends AbstractPage {
     public void addProductToBasket(){
         buttonBuyMain.click();
     }
-
-    @FindBy(css = "[class=\"btn btn-primary btn-rounded-smaller no-animation\"]")
-    private WebElement buttonBasket;
 
     public BasketPage clickBasket(){
         Waiters.waitForElementToBeVisible(buttonBasket);

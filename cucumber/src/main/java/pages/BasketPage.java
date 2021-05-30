@@ -1,8 +1,14 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Waiters;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class BasketPage extends AbstractPage{
 
@@ -13,60 +19,55 @@ public class BasketPage extends AbstractPage{
     @FindBy(css = "h1 >strong")
     private WebElement basket;
 
+    @FindBy(css = "[class=\"text-center biger-text hidden-xs\"] [class=\"delete\"]")
+    private WebElement buttonDelete;
+
+    @FindBy(css ="[class=\"col-auto text-center\"] [class=\"px20\"]")
+    private WebElement emptyCart;
+
+    @FindBy(css = "[src=\"/img/sad-panda.png\"]")
+    private WebElement sadPanda;
+
+    @FindBy(css = "[class=\"plus\"]")
+    private WebElement elementPlus;
+
+    @FindBy(css = "[class=\"counter\"]")
+    private WebElement counter;
+
+    @FindBy(css = "[class=\"text-center pull-right\"] [class=\"hidden-xs\"]")
+    private WebElement price;
+
     public WebElement checkBasket(){
         return basket;
     }
-
-    @FindBy(css = "[class=\"text-center biger-text hidden-xs\"] [class=\"delete\"]")
-    private WebElement buttonDelete;
 
     public void deleteFromBasket(){
         Waiters.waitForElementToBeVisible(buttonDelete);
         buttonDelete.click();
     }
 
-    @FindBy(css ="[class=\"col-auto text-center\"] [class=\"px20\"]")
-    private WebElement emptyCart;
-
     public String emptyCartText(){
         return emptyCart.getText();
     }
-
-    @FindBy(css = "[src=\"/img/sad-panda.png\"]")
-    private WebElement sadPanda;
 
     public WebElement emptySadCart(){
         return sadPanda;
     }
 
-    @FindBy(css = "[class=\"plus\"]")
-    private WebElement elementPlus;
-
     public void cartElementPlus(){
         elementPlus.click();
     }
 
-    /*@FindBy(css = ".quantity-box [value=\"2\"]")
-    private WebElement quantity;
-
-    public WebElement checkQuantity(){
-        return quantity;
-    }*/
-
-    @FindBy(css = "[class=\"counter\"]")
-    private WebElement counter;
-
     public String checkCounter(){
-        Waiters.waitForElementToBeVisible(counter);
         return counter.getText();
     }
 
-    @FindBy(css = "[class=\"text-center pull-right\"] [class=\"hidden-xs\"]")
-    private WebElement price;
-
     public String increasePrice(){
-        Waiters.waitForElementToBeVisible(price);
         return price.getText();
+    }
+
+    public void checkCount(){
+        Waiters.waitForElementToBe(counter,"2");
     }
 
 }
